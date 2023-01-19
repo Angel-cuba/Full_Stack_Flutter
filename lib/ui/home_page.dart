@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
         Text(
           'Theme data types',
           style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ]),
     );

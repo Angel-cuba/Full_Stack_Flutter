@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
+const Color primaryColor = Colors.teal;
+const Color secondaryColor = Color.fromARGB(255, 184, 41, 31);
+const Color yellowColor = Colors.yellow;
+const Color whiteColor = Colors.white;
+const Color darkGrayColor = Colors.black54;
+const darkHeader = Color.fromARGB(16, 0, 0, 0);
+
 class AppTheme {
   //
   AppTheme._();
 
   static final ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.teal,
+    scaffoldBackgroundColor: primaryColor,
     appBarTheme: const AppBarTheme(
-      color: Colors.teal,
+      color: darkHeader,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
@@ -38,7 +45,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
     appBarTheme: const AppBarTheme(
-      color: Colors.black,
+      color: darkGrayColor,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),

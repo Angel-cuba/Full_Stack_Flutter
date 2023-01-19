@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       // Here is the theme data type depending on the device theme
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.light,
       home: const HomePage(),
     );
   }
