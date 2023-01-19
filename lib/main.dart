@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:learning_flutter/ui/home_page.dart';
 import 'package:learning_flutter/ui/theme/theme.dart';
+import 'package:provider/provider.dart';
+
+import 'ui/theme/theme_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,14 +15,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      // Here is the theme data type depending on the device theme
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
-      home: const HomePage(),
+    return ChangeNotifierProvider(
+      create: (_) => ThemeModel(),
+      child: Consumer<ThemeModel>(
+        builder: (context, theme, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: theme.isDarkTheme ? AppTheme.darkTheme : AppTheme.lightTheme,
+            home: const HomePage(),
+          );
+        },
+      ),
     );
   }
 }
