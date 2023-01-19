@@ -16,7 +16,7 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       color: darkHeader,
       iconTheme: IconThemeData(
-        color: Colors.white,
+        color: Colors.grey,
       ),
     ),
     colorScheme: const ColorScheme.light(
@@ -47,7 +47,7 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       color: darkGrayColor,
       iconTheme: IconThemeData(
-        color: Colors.white,
+        color: Colors.yellow,
       ),
     ),
     colorScheme: const ColorScheme.light(
@@ -59,7 +59,7 @@ class AppTheme {
       color: Colors.black,
     ),
     iconTheme: const IconThemeData(
-      color: Colors.white54,
+      color: Colors.yellow,
     ),
     textTheme: const TextTheme(
       subtitle1: TextStyle(
