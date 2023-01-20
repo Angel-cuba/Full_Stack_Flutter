@@ -1,4 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class LocalNotifications {
   LocalNotifications();
@@ -6,6 +8,8 @@ class LocalNotifications {
   final _notificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<void> initNotifications() async {
+    tz.initializeTimeZones();
+
     const AndroidInitializationSettings androidInitializationSettings =
         AndroidInitializationSettings('@drawable/app_icon');
 
@@ -48,6 +52,27 @@ class LocalNotifications {
 
     await _notificationsPlugin.show(id, title, body, details,
         payload: 'item x');
+  }
+
+  //Method to chedule the notification
+  Future<void> scheduleNotification({
+    required int id,
+    required String title,
+    required String body,
+    required int seconds,
+  }) async {
+    final details = await _notificationDetails();
+
+    await _notificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(
+            DateTime.now().add(Duration(seconds: seconds)), tz.local),
+        details,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 
   void _onDidReceiveLocalNotification(

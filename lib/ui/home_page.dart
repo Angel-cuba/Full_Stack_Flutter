@@ -37,10 +37,16 @@ class _HomePageState extends State<HomePage> {
                       : theme.isDarkTheme = true;
                   notifications.showNotification(
                       id: 0,
-                      title: 'Menu',
+                      title: 'Theme changed',
                       body: theme.isDarkTheme
                           ? 'You have selected dark theme'
                           : 'Nice choice, light theme');
+                  //Schedule a notification
+                  notifications.scheduleNotification(
+                      id: 0,
+                      title: 'Scheduled notification',
+                      body: 'This is a scheduled notification',
+                      seconds: 5);
                 },
                 icon: Icon(theme.isDarkTheme
                     ? Icons.wb_sunny
@@ -62,7 +68,12 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
               onPressed: () async {
-                print('Notify 2');
+                //Schedule a notification
+                notifications.scheduleNotification(
+                    id: 0,
+                    title: 'Scheduled notification',
+                    body: 'This is a scheduled notification',
+                    seconds: 5);
               },
               child: Text(
                 'Notify',
