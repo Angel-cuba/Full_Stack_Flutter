@@ -25,13 +25,22 @@ class _HomePageState extends State<HomePage> {
     return Consumer<ThemeModel>(builder: (context, theme, child) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          leading: GestureDetector(
+            onTap: () {},
+            child: const Icon(Icons.menu),
+          ),
           actions: [
             IconButton(
                 onPressed: () {
                   theme.isDarkTheme
                       ? theme.isDarkTheme = false
                       : theme.isDarkTheme = true;
+                  notifications.showNotification(
+                      id: 0,
+                      title: 'Menu',
+                      body: theme.isDarkTheme
+                          ? 'You have selected dark theme'
+                          : 'Nice choice, light theme');
                 },
                 icon: Icon(theme.isDarkTheme
                     ? Icons.wb_sunny
@@ -39,13 +48,6 @@ class _HomePageState extends State<HomePage> {
                 color: theme.isDarkTheme
                     ? Theme.of(context).iconTheme.color
                     : Theme.of(context).iconTheme.color),
-            ElevatedButton(
-                onPressed: () async {
-                  await notifications.showNotification(
-                      id: 0, title: 'Hello', body: 'I hope you are doing well');
-                },
-                child: const Text('Notify',
-                    style: TextStyle(color: Colors.black))),
             const SizedBox(width: 20),
           ],
         ),
