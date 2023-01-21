@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const Color primaryColor = Colors.teal;
 const Color secondaryColor = Color.fromARGB(255, 184, 41, 31);
 const Color yellowColor = Colors.yellow;
 const Color whiteColor = Colors.white;
 const Color darkGrayColor = Colors.black54;
-const darkHeader = Color.fromARGB(16, 0, 0, 0);
+//Header color
+// ignore: unnecessary_const
+const lightHeader = Color.fromARGB(204, 0, 150, 110);
+const darkHeader = Colors.black38;
 
 class AppTheme {
   //
@@ -14,7 +19,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: primaryColor,
     appBarTheme: const AppBarTheme(
-      color: darkHeader,
+      color: lightHeader,
       iconTheme: IconThemeData(
         color: Colors.grey,
       ),
@@ -45,7 +50,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
     appBarTheme: const AppBarTheme(
-      color: darkGrayColor,
+      color: darkHeader,
       iconTheme: IconThemeData(
         color: Colors.yellow,
       ),
@@ -72,4 +77,20 @@ class AppTheme {
       ),
     ),
   );
+}
+
+TextStyle get subHeadingStyle {
+  return GoogleFonts.lato(
+      textStyle: const TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+  ));
+}
+
+TextStyle get headingStyle {
+  return GoogleFonts.lato(
+      textStyle: const TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.w700,
+  ));
 }
