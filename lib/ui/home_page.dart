@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:learning_flutter/ui/notifications/notification_services.dart';
+import 'package:learning_flutter/ui/theme/theme.dart';
 import 'package:learning_flutter/ui/theme/theme_model.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     return Consumer<ThemeModel>(builder: (context, theme, child) {
       return Scaffold(
         appBar: AppBar(
+          elevation: .1,
           leading: GestureDetector(
             onTap: () {},
             child: const Icon(Icons.menu),
@@ -55,30 +58,27 @@ class _HomePageState extends State<HomePage> {
                     ? Theme.of(context).iconTheme.color
                     : Theme.of(context).iconTheme.color),
             const SizedBox(width: 20),
+            const CircleAvatar(
+              // radius: 20,
+              backgroundImage: AssetImage('images/Angel_NON-bg.png'),
+            ),
           ],
         ),
         body: Column(children: [
-          Text(
-            'Theme data types',
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          Text(
-            'Brightness: ${theme.isDarkTheme ? 'dark' : 'light'}',
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                //Schedule a notification
-                notifications.scheduleNotification(
-                    id: 0,
-                    title: 'Scheduled notification',
-                    body: 'This is a scheduled notification',
-                    seconds: 5);
-              },
-              child: Text(
-                'Notify',
-                style: Theme.of(context).textTheme.subtitle1,
-              )),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              DateTime.now().hour < 12
+                  ? const Text('Good morning')
+                  : DateTime.now().hour < 18
+                      ? const Text('Good afternoon')
+                      : const Text('Good evening'),
+              Text(DateFormat.yMMMd().format(DateTime.now()),
+                  style: subHeadingStyle),
+              Text('Today', style: headingStyle),
+            ]),
+          )
         ]),
       );
     });
