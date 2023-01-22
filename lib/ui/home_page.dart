@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_flutter/ui/notifications/notification_services.dart';
 import 'package:learning_flutter/ui/theme/theme_model.dart';
+import 'package:learning_flutter/widgets/button.dart';
 import 'package:provider/provider.dart';
 
 import 'fonts/dark_fonts.dart';
@@ -27,10 +28,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeModel>(builder: (context, theme, child) {
-      final smallHeader = [
-        TextStyle(color: theme.isDarkTheme ? Colors.white : Colors.black)
-      ];
-
       return Scaffold(
         appBar: AppBar(
           elevation: .1,
@@ -73,35 +70,44 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              margin: const EdgeInsets.only(
+                top: 10,
+                left: 20,
+                right: 20,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DateTime.now().hour < 12
-                      ? Text('Good morning',
-                          style: theme.isDarkTheme
-                              ? darkSmallHeading
-                              : lightSmallHeading)
-                      : DateTime.now().hour < 18
-                          ? Text('Good afternoon',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DateTime.now().hour < 12
+                          ? Text('Good morning',
                               style: theme.isDarkTheme
                                   ? darkSmallHeading
                                   : lightSmallHeading)
-                          : Text('Good evening',
-                              style: theme.isDarkTheme
-                                  ? darkSmallHeading
-                                  : lightSmallHeading),
-                  Text(DateFormat.yMMMd().format(DateTime.now()),
-                      style: theme.isDarkTheme
-                          ? darkSubHeadingStyle
-                          : lightSubHeadingStyle),
-                  Text('Today',
-                      style: theme.isDarkTheme
-                          ? darkHeadingStyle
-                          : lightHeadingStyle),
+                          : DateTime.now().hour < 18
+                              ? Text('Good afternoon',
+                                  style: theme.isDarkTheme
+                                      ? darkSmallHeading
+                                      : lightSmallHeading)
+                              : Text('Good evening',
+                                  style: theme.isDarkTheme
+                                      ? darkSmallHeading
+                                      : lightSmallHeading),
+                      Text(DateFormat.yMMMd().format(DateTime.now()),
+                          style: theme.isDarkTheme
+                              ? darkSubHeadingStyle
+                              : lightSubHeadingStyle),
+                      Text('Today',
+                          style: theme.isDarkTheme
+                              ? darkHeadingStyle
+                              : lightHeadingStyle),
+                    ],
+                  ),
+                  CustomButton(label: '+ Add Task', onTap: () {})
                 ],
               ),
-              // color: Colors.grey.shade500,
             )
           ],
         ),
