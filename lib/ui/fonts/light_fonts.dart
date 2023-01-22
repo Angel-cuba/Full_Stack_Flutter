@@ -3,18 +3,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextStyle get lightSmallHeading {
   return GoogleFonts.lato(
-      textStyle: const TextStyle(
+      textStyle: TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
+    color: Colors.grey[800],
   ));
 }
 
 TextStyle get lightSubHeadingStyle {
   return GoogleFonts.lato(
-      textStyle: const TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
-  ));
+      textStyle: TextStyle(
+          fontSize: 24, fontWeight: FontWeight.w700, color: Colors.grey[900]));
 }
 
 TextStyle get lightHeadingStyle {
