@@ -1,9 +1,9 @@
-import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_flutter/ui/notifications/notification_services.dart';
 import 'package:learning_flutter/ui/theme/theme_model.dart';
 import 'package:learning_flutter/widgets/button.dart';
+import 'package:learning_flutter/widgets/datepicker.dart';
 import 'package:provider/provider.dart';
 
 import 'fonts/dark_fonts.dart';
@@ -111,21 +111,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              child: DatePicker(
-                DateTime.now(),
-                width: 60,
-                height: 80,
-                initialSelectedDate: DateTime.now(),
-                selectionColor: Colors.grey.shade500,
-                selectedTextColor: Colors.blue.shade600,
-                onDateChange: (date) {
-                  // New date selected
-                  print(date);
-                },
-              ),
-            )
+            const CustomDatePicker()
           ],
         ),
       );
