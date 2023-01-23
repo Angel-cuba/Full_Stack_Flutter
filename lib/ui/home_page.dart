@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_flutter/screens/add_task_bar.dart';
-import 'package:learning_flutter/ui/notifications/notification_services.dart';
 import 'package:learning_flutter/ui/theme/theme_model.dart';
 import 'package:learning_flutter/widgets/appBar.dart';
 import 'package:learning_flutter/widgets/button.dart';
@@ -19,15 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final LocalNotifications notifications;
-
-  @override
-  void initState() {
-    notifications = LocalNotifications();
-    notifications.initNotifications();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeModel>(builder: (context, theme, child) {
