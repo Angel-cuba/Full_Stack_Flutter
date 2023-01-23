@@ -1,3 +1,4 @@
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_flutter/ui/notifications/notification_services.dart';
@@ -107,6 +108,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                   CustomButton(label: '+ Add Task', onTap: () {})
                 ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 20),
+              child: DatePicker(
+                DateTime.now(),
+                width: 60,
+                height: 80,
+                initialSelectedDate: DateTime.now(),
+                selectionColor: Colors.grey.shade500,
+                selectedTextColor: Colors.blue.shade600,
+                onDateChange: (date) {
+                  // New date selected
+                  print(date);
+                },
               ),
             )
           ],
