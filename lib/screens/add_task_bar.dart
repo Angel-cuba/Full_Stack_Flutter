@@ -35,6 +35,8 @@ class _AddTaskBarState extends State<AddTaskBar> {
     'Yearly',
   ];
 
+  int _selectedColor = 0;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeModel>(builder: ((context, theme, child) {
@@ -216,6 +218,52 @@ class _AddTaskBarState extends State<AddTaskBar> {
                       }).toList(),
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text('Color',
+                              style: theme.isDarkTheme
+                                  ? darkTitleStyle
+                                  : lightTitleStyle),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Wrap(
+                              children: List<Widget>.generate(3, (int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedColor = index;
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 12),
+                                child: CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: index == 0
+                                      ? Colors.red
+                                      : index == 1
+                                          ? Colors.green
+                                          : Colors.blue,
+                                  child: Icon(
+                                    _selectedColor == index
+                                        ? Icons.check
+                                        : null,
+                                    color: Colors.white,
+                                    size: 15,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }))
+                        ],
+                      )
+                    ],
+                  )
                 ],
               ),
             )),
