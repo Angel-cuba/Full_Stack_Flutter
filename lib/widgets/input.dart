@@ -32,17 +32,17 @@ class CustomInput extends StatelessWidget {
               margin: const EdgeInsets.only(top: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: theme.isDarkTheme ? Colors.grey[800] : Colors.white70,
+                  color: theme.isDarkTheme ? Colors.grey[800] : Colors.black54,
                   border: Border.all(
-                    color: theme.isDarkTheme
-                        ? Colors.grey[600]!
-                        : Colors.grey[100]!,
+                    color:
+                        theme.isDarkTheme ? Colors.grey[600]! : Colors.black12,
                     width: 1,
                   )),
               child: Row(
                 children: [
                   Expanded(
                       child: TextFormField(
+                    readOnly: widget != null ? true : false,
                     autofocus: false,
                     cursorColor:
                         theme.isDarkTheme ? Colors.grey[500] : Colors.white70,
@@ -62,6 +62,7 @@ class CustomInput extends StatelessWidget {
                           width: 0,
                         ))),
                   )),
+                  widget ?? Container()
                 ],
               ))
         ]),
