@@ -18,11 +18,10 @@ class AddTaskBar extends StatefulWidget {
 class _AddTaskBarState extends State<AddTaskBar> {
   DateTime selectedDate = DateTime.now();
 
-  @override
-  void initState() {
-    // selectedDate = DateTime.now();
-    super.initState();
-  }
+  String _endTime = DateFormat("HH:mm")
+      .format(DateTime.now().add(const Duration(minutes: 5)))
+      .toString();
+  String _startTime = DateFormat("HH:mm").format(DateTime.now()).toString();
 
   @override
   Widget build(BuildContext context) {
@@ -95,32 +94,96 @@ class _AddTaskBarState extends State<AddTaskBar> {
                                 setState(() {
                                   selectedDate = pickerDate;
                                 });
-                                print(selectedDate);
                               }
                             }
 
                             getDateFromUser();
-                          }
-                          // },
-                          ),
+                          }),
                       controller: controller),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: CustomInput(
+                              title: 'Start Date',
+                              hint: _startTime,
+                              widget: IconButton(
+                                icon: const Icon(Icons.access_time_rounded),
+                                onPressed: () {
+                                  _getStartTime(theme);
+                                },
+                              ),
+                              controller: controller)),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Expanded(
+                          child: CustomInput(
+                              title: 'End Date',
+                              hint: _endTime,
+                              widget: IconButton(
+                                  icon: const Icon(Icons.access_time_rounded),
+                                  onPressed: () {
+                                    _getEndTime(theme);
+                                  }),
+                              controller: controller)),
+                    ],
+                  )
                 ],
               ),
             )),
       );
     }));
   }
-}
 
-// void _getDateFromUser(BuildContext context) async {
-//   final DateTime? pickerDate = await showDatePicker(
-//       context: context,
-//       initialDate: DateTime.now(),
-//       firstDate: DateTime(2020),
-//       lastDate: DateTime(2022));
-//   if (pickerDate != null && pickerDate != selectedDate) {
-//     setState(() {
-//       selectedDate = pickerDate;
-//     });
-//   }
-// }
+  _getStartTime(theme) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+        initialEntryMode: TimePickerEntryMode.input,
+        context: context,
+        initialTime: TimeOfDay.now(),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: theme.isDarkTheme ? Colors.black87 : Colors.black,
+                onPrimary: Colors.white70,
+                surface: Colors.blue,
+                onSurface: Colors.black,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child!,
+          );
+        });
+    if (pickedTime != null) {
+      setState(() {
+        _startTime = pickedTime.format(context);
+      });
+    }
+  }
+
+  _getEndTime(theme) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+        initialEntryMode: TimePickerEntryMode.input,
+        context: context,
+        initialTime: TimeOfDay.now(),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: theme.isDarkTheme ? Colors.black87 : Colors.teal,
+                onPrimary: Colors.white70,
+                surface: Colors.blue,
+                onSurface: Colors.black,
+              ),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child!,
+          );
+        });
+    if (pickedTime != null) {
+      setState(() {
+        _endTime = pickedTime.format(context);
+      });
+    }
+  }
+}
