@@ -27,7 +27,7 @@ TextStyle get lightHeadingStyle {
 TextStyle get lightTitleStyle {
   return GoogleFonts.lato(
       textStyle: const TextStyle(
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: FontWeight.w700,
   ));
 }

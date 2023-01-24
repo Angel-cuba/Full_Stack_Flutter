@@ -31,7 +31,7 @@ TextStyle get darkHeadingStyle {
 TextStyle get darkTitleStyle {
   return GoogleFonts.lato(
       textStyle: TextStyle(
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: FontWeight.w700,
     color: Colors.grey.shade300,
   ));
