@@ -23,3 +23,11 @@ TextStyle get lightHeadingStyle {
     fontWeight: FontWeight.w700,
   ));
 }
+
+TextStyle get lightTitleStyle {
+  return GoogleFonts.lato(
+      textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+  ));
+}

@@ -24,6 +24,15 @@ TextStyle get darkHeadingStyle {
       textStyle: TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.w700,
+    color: Colors.grey.shade100,
+  ));
+}
+
+TextStyle get darkTitleStyle {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
     color: Colors.grey.shade300,
   ));
 }
