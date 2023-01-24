@@ -26,6 +26,15 @@ class _AddTaskBarState extends State<AddTaskBar> {
   int _selectedReminder = 5;
   final List<int> _reminderList = [5, 10, 15, 30, 60];
 
+  String _selectedRepeat = 'Never';
+  final List<String> _repeatList = [
+    'Never',
+    'Daily',
+    'Weekly',
+    'Monthly',
+    'Yearly',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeModel>(builder: ((context, theme, child) {
@@ -152,7 +161,7 @@ class _AddTaskBarState extends State<AddTaskBar> {
                       items: _reminderList.map((int value) {
                         return DropdownMenuItem<int>(
                           value: value,
-                          child: Text('$value minutes before'),
+                          child: Text('$value'),
                         );
                       }).toList(),
                       onChanged: (int? value) {
@@ -160,6 +169,51 @@ class _AddTaskBarState extends State<AddTaskBar> {
                           _selectedReminder = value!;
                         });
                       },
+                    ),
+                  ),
+                  CustomInput(
+                    title: 'Repeat',
+                    hint: _selectedRepeat,
+                    controller: controller,
+                    widget: DropdownButton(
+                      value: _selectedRepeat,
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      iconSize: 32,
+                      elevation: 6,
+                      style:
+                          theme.isDarkTheme ? lightTitleStyle : lightTitleStyle,
+                      underline: Container(
+                        height: 0,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      dropdownColor: theme.isDarkTheme
+                          ? Colors.black87
+                          : Colors.teal.shade700,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedRepeat = newValue!;
+                        });
+                      },
+                      items: _repeatList.map((String? value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                              '$value' == 'Never'
+                                  ? 'Never repeat'
+                                  : '$value' == 'Daily'
+                                      ? 'Repeat daily'
+                                      : '$value' == 'Weekly'
+                                          ? 'Repeat weekly'
+                                          : '$value' == 'Monthly'
+                                              ? 'Repeat monthly'
+                                              : '$value' == 'Yearly'
+                                                  ? 'Repeat yearly'
+                                                  : '',
+                              style: theme.isDarkTheme
+                                  ? lightTitleStyle
+                                  : lightTitleStyle),
+                        );
+                      }).toList(),
                     ),
                   ),
                 ],
