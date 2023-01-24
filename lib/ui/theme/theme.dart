@@ -7,7 +7,7 @@ const Color whiteColor = Colors.white;
 const Color darkGrayColor = Colors.black54;
 //Header color
 // ignore: unnecessary_const
-const lightHeader = Color.fromARGB(204, 0, 150, 110);
+const lightHeader = Colors.teal;
 const darkHeader = Colors.black38;
 
 class AppTheme {
