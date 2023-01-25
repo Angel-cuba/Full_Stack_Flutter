@@ -248,8 +248,8 @@ class _AddTaskBarState extends State<AddTaskBar> {
     }));
   }
 
-  _addTaskToDatabase() {
-    _taskController.addTask(
+  _addTaskToDatabase() async {
+    int value = await _taskController.addTask(
         task: Task(
             title: _titleController.text,
             description: _descriptionController.text,
@@ -261,6 +261,7 @@ class _AddTaskBarState extends State<AddTaskBar> {
             color: _selectedColor,
             isCompleted: 0));
     // DatabaseHelper.instance.insertTask(task);
+    print("My value Id is $value");
   }
 
   _validateDate() {

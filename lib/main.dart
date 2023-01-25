@@ -3,9 +3,11 @@ import 'package:learning_flutter/ui/home_page.dart';
 import 'package:learning_flutter/ui/theme/theme.dart';
 import 'package:provider/provider.dart';
 
+import 'database/database.dart';
 import 'ui/theme/theme_model.dart';
 
-void main() {
+void main() async {
+  await DataBaseHelper.initDb();
   runApp(const MyApp());
 }
 
