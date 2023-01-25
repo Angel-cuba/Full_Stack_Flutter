@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_flutter/ui/fonts/light_fonts.dart';
 import 'package:learning_flutter/ui/theme/theme_model.dart';
@@ -8,6 +9,8 @@ import 'package:learning_flutter/widgets/button.dart';
 import 'package:learning_flutter/widgets/input.dart';
 import 'package:provider/provider.dart';
 
+import '../controllers/task_controller.dart';
+import '../models/task.dart';
 import '../ui/fonts/dark_fonts.dart';
 
 class AddTaskBar extends StatefulWidget {
@@ -18,6 +21,7 @@ class AddTaskBar extends StatefulWidget {
 }
 
 class _AddTaskBarState extends State<AddTaskBar> {
+  final TaskController _taskController = Get.put(TaskController());
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -233,18 +237,6 @@ class _AddTaskBarState extends State<AddTaskBar> {
                       CustomButton(
                           label: 'Create a task',
                           onTap: () {
-                            // if (controller.text.isNotEmpty) {
-                            //   final task = Task(
-                            //       title: controller.text,
-                            //       color: _selectedColor,
-                            //       startTime: _startTime,
-                            //       endTime: _endTime,
-                            //       reminder: _selectedReminder,
-                            //       repeat: _selectedRepeat);
-                            //   Provider.of<TaskProvider>(context, listen: false)
-                            //       .addTask(task);
-                            //   Navigator.pop(context);
-                            // }
                             _validateDate();
                           })
                     ],
@@ -256,9 +248,25 @@ class _AddTaskBarState extends State<AddTaskBar> {
     }));
   }
 
+  _addTaskToDatabase() {
+    _taskController.addTask(
+        task: Task(
+            title: _titleController.text,
+            description: _descriptionController.text,
+            date: DateFormat.yMMMd().format(selectedDate),
+            startDate: _startTime,
+            endDate: _endTime,
+            remind: _selectedReminder,
+            repeat: _selectedRepeat,
+            color: _selectedColor,
+            isCompleted: 0));
+    // DatabaseHelper.instance.insertTask(task);
+  }
+
   _validateDate() {
     if (_titleController.text.isNotEmpty &&
         _descriptionController.text.isNotEmpty) {
+      _addTaskToDatabase();
       Navigator.pop(context);
     } else if (_titleController.text.isEmpty ||
         _descriptionController.text.isEmpty) {
