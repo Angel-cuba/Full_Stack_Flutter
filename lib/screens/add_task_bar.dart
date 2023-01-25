@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_flutter/ui/fonts/light_fonts.dart';
 import 'package:learning_flutter/ui/theme/theme_model.dart';
 import 'package:learning_flutter/widgets/appBar.dart';
+import 'package:learning_flutter/widgets/button.dart';
 import 'package:learning_flutter/widgets/input.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,8 @@ class AddTaskBar extends StatefulWidget {
 }
 
 class _AddTaskBarState extends State<AddTaskBar> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   DateTime selectedDate = DateTime.now();
 
   String _endTime = DateFormat("HH:mm")
@@ -61,11 +65,11 @@ class _AddTaskBarState extends State<AddTaskBar> {
                   CustomInput(
                       title: 'Title',
                       hint: 'Enter your title',
-                      controller: controller),
+                      controller: _titleController),
                   CustomInput(
                       title: 'Description',
                       hint: 'Enter your description',
-                      controller: controller),
+                      controller: _descriptionController),
                   CustomInput(
                       title: 'Date',
                       hint: DateFormat.yMMMd().format(selectedDate),
@@ -222,46 +226,27 @@ class _AddTaskBarState extends State<AddTaskBar> {
                     height: 10,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          Text('Color',
-                              style: theme.isDarkTheme
-                                  ? darkTitleStyle
-                                  : lightTitleStyle),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Wrap(
-                              children: List<Widget>.generate(3, (int index) {
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _selectedColor = index;
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 12),
-                                child: CircleAvatar(
-                                  radius: 10,
-                                  backgroundColor: index == 0
-                                      ? Colors.red
-                                      : index == 1
-                                          ? Colors.green
-                                          : Colors.blue,
-                                  child: Icon(
-                                    _selectedColor == index
-                                        ? Icons.check
-                                        : null,
-                                    color: Colors.white,
-                                    size: 15,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }))
-                        ],
-                      )
+                      colorWidget(theme),
+                      CustomButton(
+                          label: 'Create a task',
+                          onTap: () {
+                            // if (controller.text.isNotEmpty) {
+                            //   final task = Task(
+                            //       title: controller.text,
+                            //       color: _selectedColor,
+                            //       startTime: _startTime,
+                            //       endTime: _endTime,
+                            //       reminder: _selectedReminder,
+                            //       repeat: _selectedRepeat);
+                            //   Provider.of<TaskProvider>(context, listen: false)
+                            //       .addTask(task);
+                            //   Navigator.pop(context);
+                            // }
+                            _validateDate();
+                          })
                     ],
                   )
                 ],
@@ -269,6 +254,95 @@ class _AddTaskBarState extends State<AddTaskBar> {
             )),
       );
     }));
+  }
+
+  _validateDate() {
+    if (_titleController.text.isNotEmpty &&
+        _descriptionController.text.isNotEmpty) {
+      Navigator.pop(context);
+    } else if (_titleController.text.isEmpty ||
+        _descriptionController.text.isEmpty) {
+      showCupertinoModalPopup(
+          context: context,
+          builder: (context) {
+            return CupertinoActionSheet(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Text('Please enter title',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w600)),
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                  )
+                ],
+              ),
+              actions: [
+                CupertinoActionSheetAction(
+                  child: const Text('All fields are required',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.redAccent,
+                          fontWeight: FontWeight.w700)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+              cancelButton: CupertinoActionSheetAction(
+                child: const Text('Dismiss',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.w700)),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            );
+          });
+    }
+  }
+
+  colorWidget(theme) {
+    return Column(
+      children: [
+        Text('Color',
+            style: theme.isDarkTheme ? darkTitleStyle : lightTitleStyle),
+        const SizedBox(
+          height: 10,
+        ),
+        Wrap(
+            children: List<Widget>.generate(3, (int index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedColor = index;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: CircleAvatar(
+                radius: 10,
+                backgroundColor: index == 0
+                    ? Colors.red
+                    : index == 1
+                        ? Colors.green
+                        : Colors.blue,
+                child: Icon(
+                  _selectedColor == index ? Icons.check : null,
+                  color: Colors.white,
+                  size: 15,
+                ),
+              ),
+            ),
+          );
+        }))
+      ],
+    );
   }
 
   _getStartTime(theme) async {
