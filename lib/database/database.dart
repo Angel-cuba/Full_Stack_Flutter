@@ -15,20 +15,8 @@ class DataBaseHelper {
       _dataBase =
           await openDatabase(path, version: version, onCreate: (db, version) {
         print('Creating new task');
-        return db.execute('''
-          CREATE TABLE $tableName(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT,
-            description TEXT,
-            isCompleted INTEGER,
-            date STRING,
-            startDate STRING,
-            endDate STRING,
-            color INTEGER,
-            remind INTEGER,
-            repeat TEXT
-          )
-        ''');
+        return db.execute(
+            "CREATE TABLE $tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, isCompleted INTEGER, date TEXT, startDate TEXT, endDate TEXT, color INTEGER, remind INTEGER, repeat TEXT)");
       });
     } catch (e) {
       print(e);
@@ -45,3 +33,15 @@ class DataBaseHelper {
     return await _dataBase?.query(tableName) ?? [];
   }
 }
+// CREATE TABLE $tableName(
+//             id INTEGER PRIMARY KEY AUTOINCREMENT,
+//             title TEXT,
+//             description TEXT,
+//             isCompleted INTEGER,
+//             date STRING,
+//             startDate STRING,
+//             endDate STRING,
+//             color INTEGER,
+//             remind INTEGER,
+//             repeat TEXT
+//           ),

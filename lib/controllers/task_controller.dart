@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../database/database.dart';
 import '../models/task.dart';
 
